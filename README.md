@@ -1,3 +1,0 @@
-# Hello-world
-Starting...
-Hola me llamo john estudio licenciatura en informatica en la uno tengo 32 años vivo merlo.
