@@ -35,8 +35,11 @@ main()
 	while(opcion!=0){
 		switch(opcion){
 			case 1: //ventas
+				system("cls");
+				printf("\t\t\tVentas");
+				printf("\n------------------------------------------------------------------");
 				cod_de_producto=validar_codigo();				
-				printf("Ingrese cantidad: ");
+				printf("\nIngrese cantidad: ");
 				scanf("%i",&cant_vendida);				
 				if(cantidad_producto[cod_de_producto]>cant_vendida){
 					cantidad_producto[cod_de_producto]=cantidad_producto[cod_de_producto]-cant_vendida;
@@ -47,56 +50,72 @@ main()
 					}
 				}
 				else{
-					printf("Error!!! quedan %i de %s",cantidad_producto[i],n_de_producto[i]);
+					printf("Error!!! quedan %i de %s",cantidad_producto[cod_de_producto],n_de_producto[cod_de_producto]);
 				}
 				getch();
 				system("cls");
 				break;
 			case 2: //proveedores
-				printf("Proveedores \n");
-				printf("Nombre\t\tProducto\t\tPrecio\n");
-				for(i=1;i<=5;i++)
-				{								
-				printf("%s\t\t %s \t\t %f\n",n_de_proveedor[i],n_prod_proveedor[i],p_prod_proveedor[i]);						
+				system("cls");
+				printf("\t\t\tProveedores");
+				printf("\n------------------------------------------------------------------");
+				printf("\nNombre\t\tProducto\t\tPrecio\n");
+				for(i=1;i<=5;i++){								
+					printf("%s\t %s \t\t $ %.2f\n",n_de_proveedor[i],n_prod_proveedor[i],p_prod_proveedor[i]);						
 				}
 				getch();
 				system("cls");
 				break;
 			case 3: //Articulos
-				printf("Los productos \n");
-				printf("Codigo\t\tNombre\t\tCantidad\t\tprecio\n");
+				system("cls");
+				printf("\t\t\tArticulos");
+				printf("\n-------------------------------------------------------------------");				
+				printf("\nCodigo\t\tNombre\t\tCantidad\tprecio\n");
 				for(i=1;i<=5;i++)
 				{								
-					printf("%i\t\t%s\t\t %i\n",i,n_de_producto[i],cantidad_producto[i],precio_producto[i]);	
+					printf("%i\t\t%s\t%i\t\t $ %.2f\n",i,n_de_producto[i],cantidad_producto[i],precio_producto[i]);	
 				}				
 				getch();
 				system("cls");
 				break;
 			case 4: //facturacion y gastos
-				printf("Lo total facturado hasta el momento es: %f",total_ventas);
-				printf("La cantidad de ventas han sido hasta el momento: %i",cantidad_de_ventas);
-				promedio_ventas=total_ventas/cantidad_de_ventas;
-				printf("Promedio por venta es: %f",promedio_ventas);
-				printf("Lo total gastado hasta el momento es: %f",total_compras);
-				printf("La cantidad de ventas han sido hasta el momento: %i",cantidad_de_compras);
-				promedio_compras=total_compras/cantidad_de_compras;
-				printf("Promedio por compra: %f",promedio_compras);
+				system("cls");
+				printf("\t\tFacturacion y Gastos");
+				printf("\n--------------------------------------------------------------------");
+				if(cantidad_de_ventas>0){				
+					printf("\n\nLo total facturado hasta el momento es:\t\t $ %.2f",total_ventas);
+					printf("\n\nLa cantidad de ventas han sido hasta el momento: %i",cantidad_de_ventas);
+					promedio_ventas=total_ventas/cantidad_de_ventas;
+					printf("\n\nPromedio por venta es: %.2f",promedio_ventas);
+				}
+				else{
+					printf("\n\nNo se ha realizado ninguna venta");
+				}
+				if(cantidad_de_compras>0){				
+					printf("\n\nLo total gastado hasta el momento es:\t\t $ %.2f",total_compras);
+					printf("\n\nLa cantidad de ventas han sido hasta el momento: %i",cantidad_de_compras);
+					promedio_compras=total_compras/cantidad_de_compras;
+					printf("\n\nPromedio por compra:\t\t\t\t $ %.2f",promedio_compras);
+				}
+				else{
+					printf("\n\nNo se ha realizado ninguna compra");
+				}
 				getch();
 				system("cls");
 				break;
 			case 5: //compras
+				system("cls");
+				printf("\t\t\tCompras");
+				printf("----------------------------------------------------------------------");				
 				cod_de_producto=validar_codigo();
 				for(i=1;i<=5;i++){
 					if(strcmp(n_de_producto[cod_de_producto],n_prod_proveedor[i])==0){
-						printf("El producto es: %s el costo por unidad es %f\n",n_prod_proveedor[i],p_prod_proveedor[i]);
+						printf("\nEl producto es: %s el costo por unidad es $ %.2f\n",n_prod_proveedor[i],p_prod_proveedor[i]);
 						printf("Cuantas unidades desea comprar?: ");
 						scanf("%i",&cant_comprada);
 						compra=cant_comprada*p_prod_proveedor[i];
-						cantidad_de_compras++;
-					}
-					else{
-						printf("ERROR!!! no existe proveedor");
-					}
+						cantidad_de_compras++;						
+					}					
 				}
 				getch();
 				system("cls");
@@ -127,7 +146,7 @@ int funcion_opcion(){
 			printf("2-Proveedores\n");
 			printf("3-Articulos\n");
 			printf("4-Mostrar facturacion y gastos\n");
-			printf("5-Articulos\n");
+			printf("5-Compras\n");
 			printf("0-Salir\n");
 			printf("Opcion: ");
 			scanf("%i",&opcion);
@@ -137,12 +156,12 @@ int funcion_opcion(){
 
 int validar_codigo(){
 	int cod_de_producto;	
-	printf("Ingrese codigo de producto: ");
+	printf("\nIngrese codigo de producto: ");
 	scanf("%i",&cod_de_producto);
 	while((cod_de_producto<1)||(cod_de_producto>5)){
 		system("cls");
-		printf("ERROR!!! Ingrese un dato valido");
-		printf("Ingrese codigo de producto: ");
+		printf("ERROR!!! Ingrese un codigo de articulo valido");
+		printf("\nIngrese codigo de producto: ");
 		scanf("%i",&cod_de_producto);	
 	}
 	return cod_de_producto;
