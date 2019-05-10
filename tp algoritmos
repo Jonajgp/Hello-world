@@ -125,8 +125,9 @@ main()
 							printf("\nCuantas unidades desea comprar?: ");
 							scanf("%i",&cant_comprada);
 						}while(cant_comprada<0);
-							compra=cant_comprada*p_prod_proveedor[i];
-							cantidad_de_compras++;
+						cantidad_producto[cod_de_producto]=cantidad_producto[cod_de_producto]+cant_comprada;
+						compra=cant_comprada*p_prod_proveedor[i];
+						cantidad_de_compras++;
 						
 					}					
 				}
@@ -138,9 +139,9 @@ main()
 		total_ventas=total_ventas+venta;
 		total_compras=total_compras+compra;
 		opcion=funcion_opcion();
-	}
+	}//cierra while opcion
+}//cierra main
 // INICIO DE FUNCIONES
-}
 int funcion_opcion(){
 	int opcion,i=0;
 	do{
