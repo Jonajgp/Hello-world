@@ -3,7 +3,7 @@
 #include<string.h>
 int funcion_opcion();
 int validar_codigo();
-main()
+main() 
 {
 	int i,j,opcion,cant_vendida,cantidad_producto[6],cod_de_producto,cantidad_de_ventas=0,cant_comprada,cantidad_de_compras=0;
 	float precio_producto[6],p_prod_proveedor[6],venta,total_ventas=0,compra,total_compras=0,promedio_compras,promedio_ventas;
