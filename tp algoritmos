@@ -5,33 +5,33 @@ int funcion_opcion();
 int validar_codigo();
 main()
 {
-	int i,j,opcion,cant_vendida,cantidad_producto[6],cod_de_producto,cantidad_de_ventas=0,cant_comprada=0,cantidad_de_compras=0;
-	float precio_producto[6],p_prod_proveedor[6],venta,total_ventas=0,compra,total_compras=0,promedio_compras,promedio_ventas;
-	char n_de_producto[6][15],n_de_proveedor[6][15],n_prod_proveedor[6][15];
-	for(i=1;i<=5;i++){
-		printf("Ingrese productos\n\n");
-		printf("Nombre de producto: ");
-		fflush(stdin);
-		gets(n_de_producto[i]);
-		printf("Precio de producto: ");
-		scanf("%f",&precio_producto[i]);
-		printf("Cantidad: ");
-		scanf("%i",&cantidad_producto[i]);
-		system("cls");
-	}
-	for(i=1;i<=5;i++){
-		printf("Ingrese Proveedores\n\n");
-		printf("Nombre de proveedor: ");
-		fflush(stdin);
-		gets(n_de_proveedor[i]);
-		printf("Nombre de producto: ");
-		fflush(stdin);
-		gets(n_prod_proveedor[i]);
-		printf("Precio de producto: ");
-		scanf("%f",&p_prod_proveedor[i]);
-		system("cls");
-	}		
-	opcion=funcion_opcion();
+	int i,j,opcion,cant_vendida,cod_proveedor[5],cod_producto[5],cantidad_producto[5],cod_de_producto,cantidad_de_ventas=0,cant_comprada=0,cantidad_de_compras=0;
+	float precio_producto[5],p_prod_proveedor[5],venta,total_ventas=0,compra,total_compras=0,promedio_compras,promedio_ventas;
+	char n_de_producto[5][15],n_de_proveedor[5][15],n_prod_proveedor[5][15];
+    FILE *Articulos, *Proveedores;
+    Articulos=fopen("articulos.txt","r");
+    i=0;
+    if (Articulos!=NULL)
+       while(!feof(Articulos)){
+                               fscanf(Articulos,"%i%s%f%i",&cod_producto[i],n_de_producto[i],&precio_producto[i],&cantidad_producto[i]);
+                               i++;
+                               printf("1");
+                               }
+    else
+        printf("Error al abrir el archivo");
+    fclose(Articulos);
+	Proveedores=fopen("proveedores.txt","r");
+    i=0;
+    if (Proveedores!=NULL)
+       while(!feof(Proveedores)){
+                               fscanf(Proveedores,"%i%s%s%f",&cod_proveedor[i],n_de_proveedor[i],n_prod_proveedor[i],&p_prod_proveedor[i]);
+                               i++;
+                               printf("1");
+                               }
+    else
+        printf("Error al abrir el archivo");
+    fclose(Proveedores);
+    opcion=funcion_opcion();
 	while(opcion!=0){
 		switch(opcion){
 			case 1: //ventas
@@ -66,7 +66,7 @@ main()
 				printf("\t\t\tProveedores");
 				printf("\n------------------------------------------------------------------");
 				printf("\nNombre\t\tProducto\t\tPrecio\n");
-				for(i=1;i<=5;i++){								
+				for(i=0;i<5;i++){								
 					printf("%s\t %s \t\t $ %.2f\n",n_de_proveedor[i],n_prod_proveedor[i],p_prod_proveedor[i]);						
 				}
 				getch();
@@ -77,7 +77,7 @@ main()
 				printf("\t\t\tArticulos");
 				printf("\n-------------------------------------------------------------------");				
 				printf("\nCodigo\t\tNombre\t\tCantidad\tprecio\n");
-				for(i=1;i<=5;i++)
+				for(i=0;i<5;i++)
 				{								
 					printf("%i\t\t%s\t%i\t\t $ %.2f\n",i,n_de_producto[i],cantidad_producto[i],precio_producto[i]);	
 				}				
@@ -114,7 +114,7 @@ main()
 				printf("\t\t\tCompras");
 				printf("\n----------------------------------------------------------------------");				
 				cod_de_producto=validar_codigo();
-				for(i=1;i<=5;i++){
+				for(i=0;i<5;i++){
 					if(strcmp(n_de_producto[cod_de_producto],n_prod_proveedor[i])==0){
 						printf("\nEl producto es: %s el costo por unidad es $ %.2f",n_prod_proveedor[i],p_prod_proveedor[i]);						
 						cant_comprada=0;
@@ -170,9 +170,10 @@ int funcion_opcion(){
 
 int validar_codigo(){
 	int cod_de_producto;	
-	printf("\nIngrese codigo de producto: ");
+    printf("\nIngrese codigo de producto: ");
 	scanf("%i",&cod_de_producto);
-	while((cod_de_producto<1)||(cod_de_producto>5)){
+	
+    while((cod_de_producto<1)||(cod_de_producto>5)){
 		system("cls");
 		printf("ERROR!!! Ingrese un codigo de articulo valido");
 		printf("\nIngrese codigo de producto: ");
